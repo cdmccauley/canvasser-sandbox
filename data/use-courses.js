@@ -34,16 +34,15 @@ export default function useCourses(props) {
         })
     }) : { }
 
-    const loading = !data && !error;
-    const errored = error && error.status === 403;
+    const courseLoading = !data && !error;
+    const courseError = error && error.status === 403;
 
     if (courses.length === size * 10) setSize(size + 10)
 
     return {
-        data,
-        loading,
-        errored,
+        courseLoading,
+        courseError,
         courses: courses,
-        mutate,
+        courseMutate: mutate,
     };
 }
