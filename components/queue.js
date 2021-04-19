@@ -3,6 +3,10 @@ import React from 'react'
 import useCourses from "../data/use-courses";
 import useQueue from '../data/use-queue';
 
+import {
+    Paper,
+  } from '@material-ui/core';
+
 export default function Queue(props) {
     // console.log('queue props: ', props)
     const { courses, courseError, courseMutate } = useCourses({
@@ -26,8 +30,10 @@ export default function Queue(props) {
     if (queue) console.log(queue)
 
     return (
-        <button onClick={() => queueMutate()}>
-            Refresh Queue
-        </button>
+        <Paper>
+            <button onClick={() => queueMutate()}>
+                Refresh Queue
+            </button>
+        </Paper>
     )
 }
