@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-    console.log('/api/queue.handler(): ', req.body.url)
+    console.log('/api/queue.handler()')
     await fetch(req.body.url)
     .then(canvasRes => {
         if (canvasRes.headers.has('link')) {
