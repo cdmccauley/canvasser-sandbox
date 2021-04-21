@@ -2,6 +2,8 @@ import React from 'react'
 
 import useUser from "../data/use-user";
 
+import { Avatar } from '@material-ui/core';
+
 export default function User(props) {
     // console.log('user props: ', props)
     const { user, errored, mutate } = useUser(`${props.canvasUrl}/api/v1/users/self?access_token=${props.apiKey}`);
@@ -13,6 +15,6 @@ export default function User(props) {
     if (user) console.log(user)
 
     return (
-        <img src={user.avatar_url} />
+        <Avatar src={user.avatar_url} alt={user.name} style={{height: 36, width: 36, border: '2px solid white' }} />
     )
 }
