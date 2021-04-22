@@ -31,7 +31,7 @@ export default function useQueue(props) {
     apiKey = props.apiKey;
     courses = Object.keys(props.courses);
     const [priorities, setPriorities] = useState([
-            ['meeting', 'cisco', 'course completion'],
+            ['meeting', 'cisco', 'course completion', 'final'],
             ['pacific', ' ace ']
         ])
 

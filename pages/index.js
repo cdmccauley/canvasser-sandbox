@@ -10,16 +10,16 @@ import {
   CssBaseline
 } from '@material-ui/core';
 
+import Key from '../components/key.js'
 import User from '../components/user.js'
 import Queue from '../components/queue.js'
 
 export default function Index() {
   const [darkMode, setDarkMode] = useState(true);
-  const [priorities, setPriorities] = useState([[]]);
-  // setPriorities([
-  //   ['meeting', 'cisco', 'course completion'],
-  //   ['pacific', ' ace ']
-  // ])
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [canvasUrl, setCanvasUrl] = useState(null)
+  const [apiKey, setApiKey] = useState(null)
+  // const [priorities, setPriorities] = useState([[]]);
 
   // https://material.io/design/color/the-color-system.html#tools-for-picking-colors
   // https://material-ui.com/customization/color/#playground
@@ -51,6 +51,9 @@ export default function Index() {
       </Head>
       <CssBaseline />
       <Container>
+        <Key 
+          loggedIn={ loggedIn }
+          onLogin={ setLoggedIn }/>
         <User 
           canvasUrl={ process.env.NEXT_PUBLIC_CANVAS_URL }
           apiKey={ process.env.NEXT_PUBLIC_API_KEY } />
