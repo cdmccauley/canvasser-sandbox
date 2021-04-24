@@ -36,7 +36,10 @@ export default function Index() {
       },
     } :
     {
-      type: 'light'
+      type: 'light',
+      secondary: {
+        main: '#68a7de',
+      },
     }
   })
 
@@ -53,15 +56,22 @@ export default function Index() {
       <Container>
         <Key 
           loggedIn={ loggedIn }
-          onLogin={ setLoggedIn }/>
+          setLoggedIn={ setLoggedIn }
+          apiKey={ apiKey }
+          setApiKey={ setApiKey }
+          canvasUrl={ canvasUrl }
+          setCanvasUrl={ setCanvasUrl }
+          />
         <User 
-          canvasUrl={ process.env.NEXT_PUBLIC_CANVAS_URL }
-          apiKey={ process.env.NEXT_PUBLIC_API_KEY } />
+          canvasUrl={ canvasUrl }
+          apiKey={ apiKey } />
         <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
         <Queue 
-          canvasUrl={ process.env.NEXT_PUBLIC_CANVAS_URL }
-          apiKey={ process.env.NEXT_PUBLIC_API_KEY } />
+          canvasUrl={ canvasUrl }
+          apiKey={ apiKey } />
       </Container>
     </ThemeProvider>
   )
 }
+// process.env.NEXT_PUBLIC_CANVAS_URL
+// process.env.NEXT_PUBLIC_API_KEY

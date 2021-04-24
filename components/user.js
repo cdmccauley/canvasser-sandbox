@@ -6,7 +6,7 @@ import { Avatar } from '@material-ui/core';
 
 export default function User(props) {
     // console.log('user props: ', props)
-    const { user, errored, mutate } = useUser(`${props.canvasUrl}/api/v1/users/self?access_token=${props.apiKey}`);
+    const { user, errored, mutate } = useUser(props.canvasUrl && props.apiKey ? `${props.canvasUrl}/api/v1/users/self?access_token=${props.apiKey}` : null);
 
     if (errored) return <img src='https://via.placeholder.com/128x128?text=error' />;
     if (!user) return <img src='https://via.placeholder.com/128x128?text=loading' />;

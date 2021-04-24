@@ -115,15 +115,15 @@ export default function Queue(props) {
       };
 
     // console.log('queue props: ', props)
-    const { courses, courseError, courseMutate } = useCourses({
+    const { courses, courseError, courseMutate } = useCourses(props.canvasUrl && props.apiKey ? {
         firstPage: `${props.canvasUrl}/api/v1/courses?enrollment_type=teacher&access_token=`,
         apiKey: props.apiKey
-    })
-    const { queue, queueError, queueMutate } = useQueue({
+    } : { firstPage: null })
+    const { queue, queueError, queueMutate } = useQueue(props.canvasUrl && props.apiKey ? {
         canvasUrl: props.canvasUrl,
         apiKey: props.apiKey,
         courses: courses,
-    })
+    } : null)
 
     if (courseError) return 'course error';
     if (Object.keys(courses).length === 0) return 'loading courses';
