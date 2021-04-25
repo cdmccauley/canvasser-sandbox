@@ -102,8 +102,8 @@ const useStyles = makeStyles((theme) => ({
         },
     }));
 
-// function CustomTable(props) {
 export default function Queue(props) {
+    // console.log('queue props: ', props)
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('priority');
@@ -114,16 +114,19 @@ export default function Queue(props) {
         setOrderBy(property);
       };
 
-    // console.log('queue props: ', props)
-    const { courses, courseError, courseMutate } = useCourses(props.canvasUrl && props.apiKey ? {
+    const { courses, courseError, mutateCourses } = useCourses({
         firstPage: `${props.canvasUrl}/api/v1/courses?enrollment_type=teacher&access_token=`,
+        canvasUrl: props.canvasUrl,
         apiKey: props.apiKey
-    } : { firstPage: null })
-    const { queue, queueError, queueMutate } = useQueue(props.canvasUrl && props.apiKey ? {
+    })
+
+    const { queue, queueError, mutateQueue } = useQueue({
         canvasUrl: props.canvasUrl,
         apiKey: props.apiKey,
         courses: courses,
-    } : null)
+    })
+
+    if (!props.canvasUrl || !props.apiKey) return 'Authorization Required'
 
     if (courseError) return 'course error';
     if (Object.keys(courses).length === 0) return 'loading courses';
@@ -140,10 +143,10 @@ export default function Queue(props) {
             <TableContainer>
                 <Table>
                     <CustomTableHead
-                        classes={classes}
-                        order={order}
-                        orderBy={orderBy}
-                        onRequestSort={handleRequestSort}
+                    classes={classes}
+                    order={order}
+                    orderBy={orderBy}
+                    onRequestSort={handleRequestSort}
                     />
                     <TableBody>
                         {stableSort(stableSort(Object.values(queue), getComparator('asc', 'submittedAt')), getComparator(order, orderBy))

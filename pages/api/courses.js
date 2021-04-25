@@ -9,8 +9,8 @@ export default async function handler(req, res) {
         return canvasRes.json()
     })
     .then(canvasData => {
-    res.status(200).json(JSON.stringify({
-        canvasData
-    }))
+        res.status(200).json(JSON.stringify({
+            canvasData
+        }))
     }).catch((err) => console.log(err));
 }

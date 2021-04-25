@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
-import styles from '../styles/Index.module.css'
+import React, { useState, useEffect } from 'react'
 
 import {
   Container,
@@ -10,16 +9,23 @@ import {
   CssBaseline
 } from '@material-ui/core';
 
-import Key from '../components/key.js'
+import Authorize from '../components/authorize.js'
 import User from '../components/user.js'
 import Queue from '../components/queue.js'
 
+// import styles from '../styles/Index.module.css'
+
 export default function Index() {
   const [darkMode, setDarkMode] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [canvasUrl, setCanvasUrl] = useState(null)
-  const [apiKey, setApiKey] = useState(null)
-  // const [priorities, setPriorities] = useState([[]]);
+  const [authorized, setAuthorized] = useState(false)
+  const [canvasUrl, setCanvasUrl] = useState()
+  const [apiKey, setApiKey] = useState()
+
+  useEffect(() => {
+    if (localStorage.getItem('canvasUrl')) setCanvasUrl(localStorage.getItem('canvasUrl'))
+    if (localStorage.getItem('apiKey')) setApiKey(localStorage.getItem('apiKey'))
+    if (canvasUrl && apiKey) setAuthorized(true)
+  })
 
   // https://material.io/design/color/the-color-system.html#tools-for-picking-colors
   // https://material-ui.com/customization/color/#playground
@@ -54,9 +60,9 @@ export default function Index() {
       </Head>
       <CssBaseline />
       <Container>
-        <Key 
-          loggedIn={ loggedIn }
-          setLoggedIn={ setLoggedIn }
+        <Authorize 
+          authorized={ authorized }
+          setAuthorized={ setAuthorized }
           apiKey={ apiKey }
           setApiKey={ setApiKey }
           canvasUrl={ canvasUrl }

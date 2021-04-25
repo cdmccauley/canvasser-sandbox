@@ -19,7 +19,7 @@ import {
     Check
 } from '@material-ui/icons';
 
-export default function Key(props) {
+export default function Authorize(props) {
     const [keyError, setKeyError] = useState(false)
     const [urlError, setUrlError] = useState(false)
     const [keyValid, setKeyValid] = useState(false)
@@ -40,7 +40,7 @@ export default function Key(props) {
             localStorage.setItem('apiKey', keyRef.current.value.trim());
             props.setCanvasUrl(url)
             props.setApiKey(keyRef.current.value)
-            props.setLoggedIn(true)
+            props.setAuthorized(true)
         }
     }, [keyError, urlError, keyValid, urlValid])
 
@@ -73,7 +73,7 @@ export default function Key(props) {
             maxWidth={ 'xs' }
             disableBackdropClick
             disableEscapeKeyDown
-            open = { !props.loggedIn }
+            open = { !props.authorized }
         >
             <DialogTitle>
                 Authorize

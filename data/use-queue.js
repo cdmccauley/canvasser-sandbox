@@ -4,14 +4,10 @@ import { useState } from 'react'
 import queueFetcher from "../libs/api-queue";
 
 const urlParameters = "student_ids[]=all&include[]=assignment&workflow_state[]=submitted&workflow_state[]=pending_review&enrollment_state=active";
-
-let canvasUrl;
-let apiKey;
-let courses;
+let canvasUrl, apiKey, courses;
 
 const getKey = (pageIndex, previousPageData) => {
     if (pageIndex > courses.length) return null
-
     return `${canvasUrl}/api/v1/courses/${courses[pageIndex]}/students/submissions?${urlParameters}&access_token=${apiKey}`
 }
 
@@ -30,8 +26,9 @@ export default function useQueue(props) {
     canvasUrl = props.canvasUrl;
     apiKey = props.apiKey;
     courses = Object.keys(props.courses);
+
     const [priorities, setPriorities] = useState([
-            ['meeting', 'cisco', 'course completion', 'final'],
+            ['meeting', 'cisco', 'course completion'],
             ['pacific', ' ace ']
         ])
 
@@ -41,6 +38,7 @@ export default function useQueue(props) {
     data ? data.map((page) => {
         page.canvasData.map((submission) => {
             queue[submission.id] = {
+                id: submission.id,
                 courseId: submission.assignment.course_id,
                 courseName: props.courses[submission.assignment.course_id].name,
                 assignmentId: submission.assignment_id,
@@ -61,6 +59,6 @@ export default function useQueue(props) {
         queueLoading,
         queueError,
         queue: queue,
-        queueMutate: mutate,
+        mutateQueue: mutate,
     };
 }

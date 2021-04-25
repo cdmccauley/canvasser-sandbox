@@ -1,7 +1,7 @@
 import parseLinkHeader from "../libs/parse-link-header.js";
 
 const coursesFetcher = async (url) => {
-    // console.log('libs/api-courses.coursesFetcher(): ', url)
+    // console.log(`libs/api-courses.coursesFetcher(${url})`)
     let links;
     let resData;
     return await fetch('/api/courses', {
